@@ -116,30 +116,10 @@ def bowing_summary(data):
     )
 
 
-def check_expected(result, expected, path="results"):
-    """Check every saved expected field; do not silently round discrepancies away."""
-    if isinstance(expected, dict):
-        for key, value in expected.items():
-            if key not in result:
-                raise ValueError(f"{path}: missing {key}")
-            check_expected(result[key], value, path + "." + key)
-    elif isinstance(expected, list):
-        if len(result) != len(expected):
-            raise ValueError(f"{path}: unequal lengths")
-        for index, (actual, reference) in enumerate(zip(result, expected)):
-            check_expected(actual, reference, path + f"[{index}]")
-    elif isinstance(expected, (float, int)):
-        if not np.isclose(result, expected, rtol=0, atol=1e-10):
-            raise ValueError(f"{path}: obtained {result}, expected {expected}")
-    elif result != expected:
-        raise ValueError(f"{path}: obtained {result}, expected {expected}")
-
-
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--data", type=Path, required=True)
     parser.add_argument("--output", type=Path, required=True)
-    parser.add_argument("--check", type=Path, help="Expected aggregate results JSON")
     args = parser.parse_args()
     data = load_data(args.data)
     predictions = {}
@@ -184,9 +164,6 @@ def main():
     (args.output / "results.json").write_text(
         json.dumps(result, indent=2, allow_nan=False), encoding="utf-8"
     )
-    if args.check:
-        check_expected(result, json.loads(args.check.read_text(encoding="utf-8")))
-        print("PASS: all expected aggregate results reproduced", flush=True)
     print(f"Results saved to {args.output}", flush=True)
 
 

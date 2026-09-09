@@ -53,8 +53,7 @@ recorded in `exclusions.csv`.
 `analysis_table.csv` requires sample_id, caseid, subjectid, fold, paco2,
 etco2_predraw, n_breaths, and all 24 feature columns listed in features.py.
 The optional `g` column is checked against paco2 - etco2_predraw. The optional
-`plateau_bowing` column enables the descriptive correlation and must be present
-to reproduce all fields in expected_results.json.
+`plateau_bowing` column enables the descriptive correlation.
 
 Preserve the file's full precision. Missing individual descriptors may be NaN;
 the model imputes them using training data only. Missing target components,

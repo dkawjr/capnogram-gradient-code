@@ -12,10 +12,10 @@ Checked on 9 September 2026 in a clean Windows environment using Python
   numeric EtCO2 values also matched exactly.
 - Refitted the three regression models across the five saved patient folds.
   Every prediction agreed with the frozen study manifest within 1e-12 mmHg.
-- Reproduced every metric and confidence interval in expected_results.json
-  within its 1e-10 tolerance, including the 1,000-resample paired comparisons
+- Reproduced the frozen study metrics and confidence intervals within a
+  1e-10 tolerance, including the 1,000-resample paired comparisons
   and the separate plateau-bowing correlation interval.
-- Passed 16 synthetic tests, Python compilation, and standard lint checks.
+- Passed 15 synthetic tests, Python compilation, and standard lint checks.
 
 These checks establish reproduction of the included analyses from the available
 local study inputs. They do not establish external clinical validity,

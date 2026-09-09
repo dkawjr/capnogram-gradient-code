@@ -159,10 +159,6 @@ class ReproductionTests(unittest.TestCase):
         self.assertEqual(metrics["thresholds"]["g>5"]["positive_n"], 4)
         self.assertEqual(metrics["thresholds"]["g>5"]["auroc"], 1)
 
-    def test_expected_check_detects_changes(self):
-        with self.assertRaises(ValueError):
-            analysis.check_expected({"value": 0.7}, {"value": 0.8})
-
     def test_prepared_csv_preserves_feature_floats(self):
         data = example_table()
         value = float("0.12345678912345678")

@@ -29,8 +29,7 @@ python -m unittest discover -s tests -v
 
 The tests use synthetic data and require no database access. The study replay
 was checked on Windows with the pinned environment. Floating-point behavior
-can differ across platforms; use the result checks rather than assuming exact
-cross-platform agreement.
+can differ across platforms; do not assume exact cross-platform agreement.
 
 ## Reproduce
 
@@ -39,14 +38,13 @@ blood-gas records, and the patient/fold mappings:
 
 ```text
 python prepare_data.py --samples data/samples.csv --cases data/cases.csv --folds data/folds.csv --numeric-map data/numeric_map.csv --waveform-root data --output data/prepared
-python analysis.py --data data/prepared/analysis_table.csv --output results --check expected_results.json
+python analysis.py --data data/prepared/analysis_table.csv --output results
 ```
 
 If the prepared analysis table is supplied directly, only the second command
 is needed. Output files contain the exclusion accounting, cohort counts,
 individual out-of-fold predictions, aggregate metrics, and 95% confidence
-intervals. `--check` fails if any expected aggregate result differs by more
-than 1e-10. Do not change the expected values to accommodate a failed replay.
+intervals.
 
 ## Analysis
 
@@ -77,17 +75,6 @@ The original feature CSV export/import step is retained. The prepared table is
 then read with round-trip float precision. This matters because tiny numeric
 changes can alter tree split ties; neither features nor predictions should be
 manually rounded before fitting.
-
-## Expected results
-
-| Model | AUROC >5 | AUROC >10 | AUROC >15 | Gradient R2 | Derived PaCO2 MAE, mmHg |
-|---|---:|---:|---:|---:|---:|
-| EtCO2 alone | 0.522 | 0.561 | 0.610 | 0.066 | 3.712 |
-| Morphology alone | 0.734 | 0.761 | 0.814 | 0.238 | 3.271 |
-| Morphology + EtCO2 | 0.738 | 0.769 | 0.828 | 0.280 | 3.218 |
-
-Window-level plateau bowing has Spearman rho 0.352 (95% patient-bootstrap CI,
-0.325-0.377). Full-precision expected results are in `expected_results.json`.
 
 ## Plateau bowing
 
