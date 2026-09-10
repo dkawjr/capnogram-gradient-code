@@ -7,8 +7,10 @@ input to these models.
 
 This is a code-only release. Study recordings and patient-level tables are not
 included. The required inputs are described in [INPUTS.md](INPUTS.md); those
-files must accompany reviewer access or be obtained separately. This package
-does not download the full database or reconstruct the initial source-cohort
+files must accompany reviewer access or be obtained separately. Editors and
+reviewers can request the study-specific input tables and secondary-analysis
+code from the corresponding author using the manuscript contact details.
+This package does not download the full database or reconstruct the initial source-cohort
 selection from all VitalDB operations.
 
 ## Install
